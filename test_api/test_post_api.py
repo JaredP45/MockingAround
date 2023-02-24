@@ -3,20 +3,18 @@ from unittest import TestCase
 from unittest.mock import patch
 
 # Local Import
-from main import PostAPI
+from main import JsonPlaceHolderThing
 
 
 class TestPostAPI(TestCase):
     def test_post_api_success(self):
-        api = PostAPI()
+        api = JsonPlaceHolderThing()
         with patch("requests.sessions.Session.get") as mock_get_posts:
             mock_get_posts.return_value.json.return_value = self.mock_post_data()
             response = api.get_posts()
 
-        for post in response:
-            print(post)
-            # self.assertIn(post, self.mock_post_data())
-        self.assertTrue(False)
+        mock_get_posts.assert_called()
+        print(response)
 
     @staticmethod
     def mock_post_data():
